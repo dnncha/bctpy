@@ -916,7 +916,7 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1, seed=None):
     An = (W < 0)  # negative adjmat
 
     if np.size(np.where(Ap.flat)) < (n * (n - 1)):
-        W_r, _ = randmio_und_signed(W, bin_swaps, seed=rng)
+        W_r, _ = randmio_dir_signed(W, bin_swaps, seed=rng)
         Ap_r = W_r > 0
         An_r = W_r < 0
     else:
@@ -932,9 +932,9 @@ def null_model_dir_sign(W, bin_swaps=5, wei_freq=.1, seed=None):
             Acur = An
             A_rcur = An_r
 
-        Si = np.sum(W * Acur, axis=0)  # positive in-strength
-        So = np.sum(W * Acur, axis=1)  # positive out-strength
-        Wv = np.sort(W[Acur].flat)  # sorted weights vector
+        Si = np.sum(W * Acur * s, axis=0)  # positive in-strength
+        So = np.sum(W * Acur * s, axis=1)  # positive out-strength
+        Wv = np.sort(W[Acur] * s)  # sorted weights vector
         i, j = np.where(A_rcur)
         Lij, = np.where(A_rcur.flat)  # weights indices
 
@@ -1059,8 +1059,8 @@ def null_model_und_sign(W, bin_swaps=5, wei_freq=.1, seed=None):
             Acur = An
             A_rcur = An_r
 
-        S = np.sum(W * Acur, axis=0)  # strengths
-        Wv = np.sort(W[np.where(np.triu(Acur))])  # sorted weights vector
+        S = np.sum(W * Acur * s, axis=0)  # strengths
+        Wv = np.sort(W[np.where(np.triu(Acur))] * s)  # sorted weights vector
         i, j = np.where(np.triu(A_rcur))
         Lij, = np.where(np.triu(A_rcur).flat)  # weights indices
 
