@@ -38,11 +38,11 @@ def test_gateway_coef_uses_neighbor_node_indices():
         [0, 0, 3, 0, 0, 1],
         [0, 0, 0, 5, 1, 0],
     ], dtype=float)
-    ci = np.array([1, 2, 1, 2, 3, 3])
+    ci = np.array([1, 2, 1, 2, 1, 2])
 
     gp, _ = bct.gateway_coef_sign(W, ci)
 
     assert np.allclose(
         gp,
-        [0.87402367, 0.86176857, 0.83043639, 0.84227071, 0.89866864, 0.88395792],
+        [0.62248994, 0.57664286, 0.81934232, 0.81934232, 0.59285185, 0.67035485],
     )
