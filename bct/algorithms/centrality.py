@@ -538,7 +538,8 @@ def gateway_coef_sign(W, ci, centrality_type='degree'):
         for i in range(nr_modules):
             #if more than 1 node in the module
             if np.sum(ci == i+1) > 1:         
-                kj = np.ones((np.sum(ci == i+1), 1)) * np.sum(\n                    ks[ci == i+1, :], axis=0)
+                kj = np.ones((np.sum(ci == i+1), 1)) * np.sum(
+                    ks[ci == i+1, :], axis=0)
                 kj[:, i] /= 2
                 
                 kjs[ci == i+1, :] = kj
